@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EducaSync - Home</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <nav class="nav-left">
+            <a href="contato.html">Contato</a>
+            <a href="sobre.html">Sobre</a>
+            <a href="javascript:void(0);" id="search-btn" class="search-btn">Buscar</a>
+        </nav>
+        <nav class="nav-right">
+            <a href="registro.html" class="btn">Registrar-se</a>
+            <a href="login.html" class="btn">Login</a>
+        </nav>
+    </header>
+
+    <!-- Campo de busca que ficará oculto até o botão "Buscar" ser clicado -->
+    <div id="search-container" class="search-container" style="display: none;">
+        <input type="text" id="search-input" placeholder="Digite sua busca...">
+        <button id="search-lupa" class="search-btn">🔍</button> <!-- Lupa fixa no final -->
+    </div>
+
+    <main>
+        <div class="welcome-message">
+            <h1>Bem-vindo ao EducaSync</h1>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 EducaSync. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Obtém os elementos do botão de busca e do campo de busca
+        const searchBtn = document.getElementById('search-btn');
+        const searchContainer = document.getElementById('search-container');
+        const searchLupa = document.getElementById('search-lupa');
+
+        // Função para alternar a exibição do campo de busca
+        searchBtn.addEventListener('click', function() {
+            if (searchContainer.style.display === 'flex') {
+                searchContainer.style.display = 'none'; // Fecha o campo de busca
+            } else {
+                // Calcula a posição do botão de busca
+                const rect = searchBtn.getBoundingClientRect();
+                searchContainer.style.position = 'absolute'; // Garante que o campo de busca fique posicionado corretamente
+                searchContainer.style.left = `${rect.left + rect.width + 10}px`; // Aparece à direita do botão com um pequeno espaço
+                searchContainer.style.top = `${rect.top}px`; // Fica alinhado ao topo do botão "Buscar"
+                searchContainer.style.display = 'flex'; // Exibe o campo de busca
+            }
+        });
+
+        // Ao clicar na lupa, realiza a pesquisa (por enquanto, apenas exibe o valor digitado)
+        searchLupa.addEventListener('click', function() {
+            const query = document.getElementById('search-input').value;
+            console.log(`Realizando busca por: ${query}`); // Aqui você pode adicionar o comportamento da pesquisa
+        });
+    </script>
+</body>
+</html>
