@@ -1,0 +1,53 @@
+CREATE DATABASE bd_educa_sync;
+
+USE bd_educa_sync;
+
+CREATE TABLE usuarios (
+    IdUsuarios INT AUTO_INCREMENT PRIMARY KEY,
+    usu_home VARCHAR(45),
+    usu_email VARCHAR(45),
+    usu_senha VARCHAR(45),
+    usu_tipo VARCHAR(45)
+);
+
+CREATE TABLE escola (
+    IdEscola INT AUTO_INCREMENT PRIMARY KEY,
+    esc_name VARCHAR(45),
+    esc_desc VARCHAR(1000),
+    Usuarios_idUsuarios INT,
+    FOREIGN KEY (Usuarios_idUsuarios) REFERENCES Usuarios(IdUsuarios)
+);
+
+CREATE TABLE professores (
+    IdProfessores INT AUTO_INCREMENT PRIMARY KEY,
+    Usuarios_idUsuarios INT,
+    FOREIGN KEY (Usuarios_idUsuarios) REFERENCES Usuarios(IdUsuarios)
+);
+
+CREATE TABLE sala (
+    IdSala INT AUTO_INCREMENT PRIMARY KEY,
+    sal_name VARCHAR(45),
+    sal_desc VARCHAR(45),
+    sal_cod_acesso VARCHAR(6),
+    Escola_idEscola INT,
+    FOREIGN KEY (Escola_idEscola) REFERENCES Escola(IdEscola)
+);
+
+CREATE TABLE turmas (
+    IdTurmas INT AUTO_INCREMENT PRIMARY KEY,
+    tur_home_aluno VARCHAR(45),
+    tur_presenca VARCHAR(45),
+    Professores_idProfessores INT,
+    FOREIGN KEY (Professores_idProfessores) REFERENCES Professores(IdProfessores)
+);
+
+CREATE TABLE eventos (
+    IdEventos INT AUTO_INCREMENT PRIMARY KEY,
+    eve_nome VARCHAR(45),
+    eve_descricao VARCHAR(1000),
+    eve_data DATETIME,
+    Turmas_idTurmas INT,
+    Sala_idSala INT,
+    FOREIGN KEY (Turmas_idTurmas) REFERENCES Turmas(IdTurmas),
+    FOREIGN KEY (Sala_idSala) REFERENCES Sala(IdSala)
+);
