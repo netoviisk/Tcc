@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Usuário</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}  <div id="escola-field" style="display: none;">  {{ escola_form.as_p }} </div>
+    <button type="submit">Cadastrar</button>
+</form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const tipoUsuario = document.getElementById("{{ form.usu_tipo.id_for_label }}"); // Usando o ID correto
+      const escolaField = document.getElementById("escola-field");
+
+        tipoUsuario.addEventListener("change", function () {
+            if (tipoUsuario.value === "professor") {
+                escolaField.style.display = "block";
+            } else {
+                escolaField.style.display = "none";
+            }
+        });
+    });
+</script>
+</body>
+</html>

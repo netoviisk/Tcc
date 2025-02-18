@@ -1,0 +1,196 @@
+/* Resetando margens e preenchimento */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos gerais */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Cabeçalho fixo */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #343a40;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.nav-left,
+.nav-right {
+    display: flex;
+    gap: 15px; /* Espaçamento consistente */
+}
+
+.nav-left a,
+.nav-right a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease; /* Transição mais suave */
+    border-radius: 5px; /* Bordas arredondadas */
+}
+
+.nav-left a:hover,
+.nav-right a:hover {
+    background-color: #495057;
+}
+
+/* Estilo da mensagem de boas-vindas */
+main {
+    margin-top: 80px;
+    padding: 20px;
+    text-align: center;
+}
+
+.welcome-message h1 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Estilos para a lista de usuários */
+.user-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px; /* Espaço acima da lista */
+}
+
+.user-list li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+    display: flex; /* Alinha os itens horizontalmente */
+    align-items: center; /* Alinha verticalmente */
+}
+
+.user-list li:hover {
+    transform: scale(1.02);
+}
+
+.user-list li>* {
+    /* Espaçamento entre os elementos dentro do li */
+    margin-right: 10px;
+}
+
+.user-list li strong {
+    font-weight: bold;
+}
+
+/* Estilos para o botão de busca */
+#search-btn {
+    position: relative;
+    z-index: 1000;
+}
+
+/* Estilos para o container do campo de busca */
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    gap: 10px;
+    width: 350px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 999;
+    transition: all 0.3s ease; /* Transição suave */
+}
+
+.search-container.active {
+    /* Estilos quando o container está ativo */
+    left: 10px;
+    /* Posiciona o campo de busca */
+}
+
+/* Estilo do campo de input */
+#search-input {
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Estilos para a lupa de pesquisa */
+#search-lupa {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease; /* Transição suave */
+}
+
+#search-lupa:hover {
+    background-color: #0056b3;
+}
+
+/* Rodapé */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #343a40;
+    color: #fff;
+    margin-top: 40px;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .nav-left a,
+    .nav-right a {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+
+    .btn {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+
+    .welcome-message h1 {
+        font-size: 30px;
+    }
+
+    .search-container {
+        width: 90%;
+        /* Ocupa toda a largura em telas menores */
+        max-width: 350px;
+        /* Largura máxima */
+        left: 50%;
+        /* Centraliza */
+        transform: translate(-50%, -50%);
+        /* Centraliza */
+    }
+}
