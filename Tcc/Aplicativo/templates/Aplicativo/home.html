@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EducaSync - Home</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="{% url 'contato' %}">Contato</a>
+                <a href="{% url 'sobre' %}">Sobre</a>
+                <button id="search-btn" class="search-button">Buscar</button>
+            </div>
+            <div class="nav-right">
+                <a href="{% url 'cadastro' %}" class="btn">Registrar-se</a>
+                <a href="{% url 'login' %}" class="btn">Login</a>
+            </div>
+        </nav>
+    </header>
+
+    <div id="search-container" class="search-container">
+        <input type="text" id="search-input" placeholder="Digite sua busca...">
+        <button id="search-lupa" class="search-button">🔍</button>
+    </div>
+
+    <main>
+        <div class="welcome-message">
+            <h1>Bem-vindo ao EducaSync</h1>
+        </div>
+
+        <h1>Lista de Usuários</h1>
+
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Escolha de Cadastro</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.usu_home }}</td>
+                    <td>{{ usuario.usu_email }}</td>
+                    <td>{{ usuario.usu_tipo }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">Nenhum usuário cadastrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <form method="POST">
+            {% csrf_token %}
+            <label for="usu_tipo">Escolha de Cadastro:</label>
+            <select name="usu_tipo" id="usu_tipo" required>
+                <option value="Administrador">Administrador</option>
+                <option value="Professor">Professor</option>
+            </select>
+            <button type="submit">Enviar</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>© 2025 EducaSync. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchBtn = document.getElementById('search-btn');
+            const searchContainer = document.getElementById('search-container');
+            const searchInput = document.getElementById('search-input');
+            const searchLupa = document.getElementById('search-lupa');
+
+            searchBtn.addEventListener('click', function () {
+                searchContainer.classList.toggle('active');
+                if (searchContainer.classList.contains('active')) {
+                    searchInput.focus();
+                }
+            });
+
+            searchLupa.addEventListener('click', function () {
+                const termoBusca = searchInput.value;
+                if (termoBusca.trim() !== "") {
+                    console.log("Buscando por: " + termoBusca);
+                } else {
+                    alert("Por favor, digite um termo de busca.");
+                }
+            });
+
+            searchInput.addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    searchLupa.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
