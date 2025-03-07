@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Usuário</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        label {
+            font-weight: bold;
+        }
+        button {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #388e3c;
+        }
+        #escola-field {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+
+        <!-- Renderiza manualmente os campos do formulário, excluindo 'usu_tipo' -->
+        {% for field in form %}
+            {% if field.name != 'usu_tipo' %}
+                <p>
+                    <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                    {{ field }}
+                </p>
+            {% endif %}
+        {% endfor %}
+
+        <p><strong>Cadastrar Como:</strong></p>
+        <p>
+            <input type="radio" id="professor" name="usu_tipo" value="professor" {% if form.usu_tipo.value == "professor" %}checked{% endif %}>
+            <label for="professor">Professor</label>
+        </p>
+        <p>
+            <input type="radio" id="administrador" name="usu_tipo" value="admin" {% if form.usu_tipo.value == "admin" %}checked{% endif %}>
+            <label for="administrador">Administrador</label>
+        </p>
+
+        <div id="escola-field">
+            {{ escola_form.as_p }}
+        </div>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const tipoUsuario = document.querySelectorAll("input[name='usu_tipo']");
+            const escolaField = document.getElementById("escola-field");
+
+            function toggleEscolaField() {
+                const selectedValue = document.querySelector("input[name='usu_tipo']:checked").value;
+                escolaField.style.display = selectedValue === "admin" ? "block" : "none";
+            }
+
+            tipoUsuario.forEach(radio => {
+                radio.addEventListener("change", toggleEscolaField);
+            });
+
+            toggleEscolaField(); // Ajusta a exibição inicial
+        });
+    </script>
+</body>
+</html>
