@@ -14,12 +14,12 @@ CREATE TABLE escola (
     IdEscola INT AUTO_INCREMENT PRIMARY KEY,
     esc_name VARCHAR(45),
     esc_desc VARCHAR(1000),
-    Usuarios_idUsuarios INT,
-    FOREIGN KEY (Usuarios_idUsuarios) REFERENCES Usuarios(IdUsuarios)
+    Usuarios_idUsuarios INT
 );
 
 CREATE TABLE professores (
     IdProfessores INT AUTO_INCREMENT PRIMARY KEY,
+    codigo_unico VARCHAR(45),
     Usuarios_idUsuarios INT,
     FOREIGN KEY (Usuarios_idUsuarios) REFERENCES Usuarios(IdUsuarios)
 );
@@ -36,6 +36,7 @@ CREATE TABLE sala (
 CREATE TABLE turmas (
     IdTurmas INT AUTO_INCREMENT PRIMARY KEY,
     tur_home_aluno VARCHAR(45),
+    tur_matricula VARCHAR(100),
     tur_presenca VARCHAR(45),
     Professores_idProfessores INT,
     FOREIGN KEY (Professores_idProfessores) REFERENCES Professores(IdProfessores)
