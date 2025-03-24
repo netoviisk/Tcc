@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificação de Acesso</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #f4f6f9; font-family: 'Segoe UI', sans-serif; color: #333; text-align: center; }
+        .container { margin-top: 100px; padding: 20px; background: white; display: inline-block; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .loading { margin-top: 20px; font-size: 18px; color: #555; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Verificando Acesso...</h2>
+        <p class="loading">Aguarde um momento enquanto verificamos seu vínculo com uma instituição.</p>
+    </div>
+
+    <script>
+        setTimeout(function() {
+            window.location.href = "{% url 'verificar_escola' %}";
+        }, 2000); // Aguarda 2 segundos antes de redirecionar
+    </script>
+</body>
+</html>
