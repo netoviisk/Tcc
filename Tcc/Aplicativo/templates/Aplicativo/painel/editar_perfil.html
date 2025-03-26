@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil Profissional</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+        }
+        .profile-container {
+            width: 80%;
+            max-width: 900px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .cover-photo {
+            width: 100%;
+            height: 200px;
+            background: url('capa.jpg') center/cover;
+            position: relative;
+        }
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid white;
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: url('perfil.jpg') center/cover;
+        }
+        .edit-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .edit-overlay i {
+            font-size: 24px;
+            color: #333;
+        }
+        .cover-photo:hover .edit-overlay,
+        .profile-pic:hover .edit-overlay {
+            opacity: 1;
+            cursor: pointer;
+        }
+        .profile-info {
+            text-align: center;
+            padding: 20px;
+        }
+        .profile-info h2 {
+            margin: 10px 0;
+        }
+        .profile-info p {
+            color: #666;
+        }
+        .edit-section {
+            padding: 20px;
+            border-top: 1px solid #ddd;
+        }
+        .edit-section label {
+            display: block;
+            margin-top: 10px;
+        }
+        .edit-section input, .edit-section textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .edit-section button {
+            margin-top: 15px;
+            padding: 10px 15px;
+            border: none;
+            background: #1c8557;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .edit-section button:hover {
+            background: #38a169;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="cover-photo">
+            <div class="edit-overlay"><i>✏️</i></div>
+        </div>
+        <div class="profile-pic">
+            <div class="edit-overlay"><i>✏️</i></div>
+        </div>
+        <div class="profile-info">
+            <h2>Nome do Usuário</h2>
+            <p>email@exemplo.com</p>
+        </div>
+        <div class="edit-section">
+            <h3>Editar Perfil</h3>
+            <label for="name">Nome:</label>
+            <input type="text" id="name" value="Nome do Usuário">
+            <label for="email">Email:</label>
+            <input type="email" id="email" value="email@exemplo.com">
+            <label for="bio">Sobre:</label>
+            <textarea id="bio" rows="4">Escreva algo sobre você...</textarea>
+            <button>Salvar Alterações</button>
+        </div>
+    </div>
+</body>
+</html>
