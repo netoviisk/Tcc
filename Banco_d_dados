@@ -4,6 +4,7 @@ USE bd_educa_sync;
 
 CREATE TABLE usuarios (
     IdUsuarios INT AUTO_INCREMENT PRIMARY KEY,
+    codigo_unico VARCHAR(8),
     usu_home VARCHAR(45),
     usu_email VARCHAR(45),
     usu_senha VARCHAR(45),
@@ -14,14 +15,14 @@ CREATE TABLE escola (
     IdEscola INT AUTO_INCREMENT PRIMARY KEY,
     esc_name VARCHAR(45),
     esc_desc VARCHAR(1000),
-    Usuarios_idUsuarios INT
+    Usuarios_idUsuarios INT,
+    FOREIGN KEY (Usuarios_idUsuarios) REFERENCES usuarios(IdUsuarios)
 );
 
 CREATE TABLE professores (
     IdProfessores INT AUTO_INCREMENT PRIMARY KEY,
-    codigo_unico VARCHAR(45),
     Usuarios_idUsuarios INT,
-    FOREIGN KEY (Usuarios_idUsuarios) REFERENCES Usuarios(IdUsuarios)
+    FOREIGN KEY (Usuarios_idUsuarios) REFERENCES usuarios(IdUsuarios)
 );
 
 CREATE TABLE sala (
@@ -30,7 +31,7 @@ CREATE TABLE sala (
     sal_desc VARCHAR(45),
     sal_cod_acesso VARCHAR(6),
     Escola_idEscola INT,
-    FOREIGN KEY (Escola_idEscola) REFERENCES Escola(IdEscola)
+    FOREIGN KEY (Escola_IdEscola) REFERENCES escola(IdEscola)
 );
 
 CREATE TABLE turmas (
@@ -39,7 +40,7 @@ CREATE TABLE turmas (
     tur_matricula VARCHAR(100),
     tur_presenca VARCHAR(45),
     Professores_idProfessores INT,
-    FOREIGN KEY (Professores_idProfessores) REFERENCES Professores(IdProfessores)
+    FOREIGN KEY (Professores_idProfessores) REFERENCES professores(IdProfessores)
 );
 
 CREATE TABLE eventos (
@@ -49,6 +50,6 @@ CREATE TABLE eventos (
     eve_data DATETIME,
     Turmas_idTurmas INT,
     Sala_idSala INT,
-    FOREIGN KEY (Turmas_idTurmas) REFERENCES Turmas(IdTurmas),
-    FOREIGN KEY (Sala_idSala) REFERENCES Sala(IdSala)
+    FOREIGN KEY (Turmas_idTurmas) REFERENCES turmas(IdTurmas),
+    FOREIGN KEY (Sala_idSala) REFERENCES sala(IdSala)
 );
