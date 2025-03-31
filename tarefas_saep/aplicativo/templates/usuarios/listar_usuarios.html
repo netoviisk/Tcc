@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Usuários</title>
+    <style>
+        /* Reset básico para garantir consistência entre navegadores */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 1.5rem;
+    color: #222;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+nav ul li {
+    display: inline;
+}
+
+.button {
+    display: inline-block;
+    text-decoration: none;
+    background: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.button:hover {
+    background: #0056b3;
+}
+
+/* Estilizando a tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background: #007bff;
+    color: white;
+}
+
+/* Estilizando o formulário */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+}
+
+label {
+    font-weight: bold;
+}
+
+input, button {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #0056b3;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Lista de Usuários</h1>
+        </header>
+        <table>
+            <tr>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Ações</th> <!-- Nova coluna para Ações -->
+            </tr>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.usu_codigo }}</td>
+                <td>{{ usuario.usu_nome }}</td>
+                <td>{{ usuario.usu_email }}</td>
+                <td>
+                    <a href="{% url 'edita_usuarios' usuario.usu_codigo %}" class="button">Editar</a>
+                    <a href="{% url 'exclui_usuarios' usuario.usu_codigo %}" class="button" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="{% url 'cadastro_usuarios' %}" class="button">Cadastrar Usuário</a></li>
+        </ul>
+    </nav>
+</body>
+</html>

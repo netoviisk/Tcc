@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excluir Usuário</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Tem certeza que deseja excluir o usuário?</h1>
+        </header>
+        <p><strong>Nome:</strong> {{ usuario.usu_nome }}</p>
+        <p><strong>E-mail:</strong> {{ usuario.usu_email }}</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit">Sim, Excluir</button>
+            <a href="{% url 'home' %}">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>

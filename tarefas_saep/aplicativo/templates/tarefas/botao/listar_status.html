@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas por Status</title>
+    <style>
+        /* Estilos básicos para a página */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        .status-table {
+            width: 100%;
+            margin-bottom: 40px;
+            border-collapse: collapse;
+        }
+        .status-table th, .status-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .status-table th {
+            background-color: #007bff;
+            color: white;
+        }
+        .button {
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Tarefas por Status</h1>
+
+        <!-- Tarefas Pendentes -->
+        <h2>Pendente</h2>
+        <table class="status-table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Descrição</th>
+                    <th>Setor</th>
+                    <th>Prioridade</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tarefa in pendentes %}
+                <tr>
+                    <td>{{ tarefa.tar_codigo }}</td>
+                    <td>{{ tarefa.tar_descricao }}</td>
+                    <td>{{ tarefa.tar_setor }}</td>
+                    <td>{{ tarefa.tar_prioridade }}</td>
+                    <td>{{ tarefa.tar_status }}</td>
+                    <td>
+                        <a href="{% url 'alterar_status' tarefa.tar_codigo 'Em Progresso' %}" class="button">Em Progresso</a>
+                        <a href="{% url 'alterar_status' tarefa.tar_codigo 'Concluída' %}" class="button">Concluída</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Tarefas em Progresso -->
+        <h2>Em Progresso</h2>
+        <table class="status-table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Descrição</th>
+                    <th>Setor</th>
+                    <th>Prioridade</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tarefa in em_progresso %}
+                <tr>
+                    <td>{{ tarefa.tar_codigo }}</td>
+                    <td>{{ tarefa.tar_descricao }}</td>
+                    <td>{{ tarefa.tar_setor }}</td>
+                    <td>{{ tarefa.tar_prioridade }}</td>
+                    <td>{{ tarefa.tar_status }}</td>
+                    <td>
+                        <a href="{% url 'alterar_status' tarefa.tar_codigo 'Pendente' %}" class="button">Pendente</a>
+                        <a href="{% url 'alterar_status' tarefa.tar_codigo 'Concluída' %}" class="button">Concluída</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Tarefas Concluídas -->
+        <h2>Concluída</h2>
+        <table class="status-table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Descrição</th>
+                    <th>Setor</th>
+                    <th>Prioridade</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tarefa in concluidas %}
+                <tr>
+                    <td>{{ tarefa.tar_codigo }}</td>
+                    <td>{{ tarefa.tar_descricao }}</td>
+                    <td>{{ tarefa.tar_setor }}</td>
+                    <td>{{ tarefa.tar_prioridade }}</td>
+                    <td>{{ tarefa.tar_status }}</td>
+                    <td>
+                        <a href="{% url 'alterar_status' tarefa.tar_codigo 'Pendente' %}" class="button">Pendente</a>
+                        <a href="{% url 'alterar_status' tarefa.tar_codigo 'Em Progresso' %}" class="button">Em Progresso</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

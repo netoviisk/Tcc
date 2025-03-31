@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Tarefa</title>
+        <style>
+        /* Reset básico para garantir consistência entre navegadores */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        header {
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            color: #222;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        .button {
+            display: inline-block;
+            text-decoration: none;
+            background: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .button:hover {
+            background: #0056b3;
+        }
+
+        /* Estilizando o formulário */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            text-align: left;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select, button {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Editar Tarefa</h1>
+        </header>
+        <form method="POST">
+            {% csrf_token %}
+
+            <label for="descricao">Descrição:</label>
+            <input type="text" id="descricao" name="descricao" value="{{ tarefa.tar_descricao }}" required><br>
+
+            <label for="setor">Setor:</label>
+            <input type="text" id="setor" name="setor" value="{{ tarefa.tar_setor }}" required><br>
+
+            <label for="prioridade">Prioridade:</label>
+            <select id="prioridade" name="prioridade" required>
+                <option value="Baixa" {% if tarefa.tar_prioridade == 'Baixa' %}selected{% endif %}>Baixa</option>
+                <option value="Média" {% if tarefa.tar_prioridade == 'Média' %}selected{% endif %}>Média</option>
+                <option value="Alta" {% if tarefa.tar_prioridade == 'Alta' %}selected{% endif %}>Alta</option>
+            </select><br>
+
+            <label for="status">Status:</label>
+            <select id="status" name="status" required>
+                <option value="Pendente" {% if tarefa.tar_status == 'Pendente' %}selected{% endif %}>Pendente</option>
+                <option value="Em andamento" {% if tarefa.tar_status == 'Em andamento' %}selected{% endif %}>Em andamento</option>
+                <option value="Concluída" {% if tarefa.tar_status == 'Concluída' %}selected{% endif %}>Concluída</option>
+            </select><br>
+
+            <label for="data">Data de Conclusão:</label>
+            <input type="date" id="data" name="data" value="{{ tarefa.tar_data }}" required><br>
+
+            <button type="submit">Salvar Alterações</button>
+        </form>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="{% url 'listar_tarefas' %}" class="button">Voltar para a Lista de Tarefas</a></li>
+        </ul>
+    </nav>
+</body>
+</html>
