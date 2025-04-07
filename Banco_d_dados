@@ -9,8 +9,8 @@ CREATE TABLE usuarios (
     usu_email VARCHAR(45),
     usu_senha VARCHAR(45),
     usu_tipo VARCHAR(45),
-    imagem_perfil VARCHAR(255) DEFAULT 'perfil/profile_icon.jpg',
-    imagem_capa VARCHAR(255) DEFAULT 'capa/fundo.jpg'
+    imagem_perfil VARCHAR(255) DEFAULT 'perfil/profile_icon.png',
+    imagem_capa VARCHAR(255) DEFAULT 'capa/fundo.png'
 );
 
 CREATE TABLE escola (
