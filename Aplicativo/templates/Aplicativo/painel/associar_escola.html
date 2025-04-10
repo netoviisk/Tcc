@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Associar ou Registrar Instituição de Ensino</title>
+    <style>
+        /* Estilos gerais */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+        a {
+            text-decoration: none;
+        }
+
+        /* Cabeçalho */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background-color: #1c8557;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .profile-icon img {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        /* Mensagem de boas-vindas */
+        .welcome-message {
+            text-align: center;
+            margin-top: 80px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .welcome-message h2 {
+            font-size: 28px;
+            color: #333;
+        }
+        .welcome-message p {
+            font-size: 18px;
+            color: #666;
+        }
+
+        /* Melhorias no botão "Clique Aqui" */
+        .welcome-message button {
+            background: linear-gradient(135deg, #38a169, #1c8557);
+            border: none;
+            border-radius: 5px;
+            padding: 12px 25px;
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .welcome-message button:active {
+            transform: scale(0.98);
+        }
+
+        /* Formulário de Registro */
+        .container {
+            text-align: center;
+            margin-top: 100px;
+        }
+        .container h2 {
+            font-size: 24px;
+            color: #333;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .form-group input, .form-group textarea {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+        .form-group button {
+            padding: 18px 35px;
+            margin-top: 15px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(135deg, #38a169, #1c8557);
+            color: white;
+            width: 250px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .form-group button:hover {
+            background-color: #2f8e4d;
+            transform: translateY(-2px);
+        }
+
+        /* Melhorias no Select Box */
+        select {
+            width: 100%;
+            max-width: 320px;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: white;
+            color: #333;
+            appearance: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        select:hover, select:focus {
+            border-color: #38a169;
+            box-shadow: 0 2px 8px rgba(56, 161, 105, 0.4);
+        }
+
+        /* Centralizando o Select Box */
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        label {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        /* Rodapé */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            background-color: #1c8557;
+            color: #ffffff;
+        }
+
+        /* Estilo do Pop-up */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .popup p {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .popup button {
+            padding: 10px 20px;
+            background-color: #38a169;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup button:hover {
+            background-color: #2f8e4d;
+        }
+
+        /* Centralizando o título "Vincular Conta a uma Instituição" */
+        .container h2 {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 28px;
+            color: #333;
+        }
+
+        /* Estilo do botão "Vincular" */
+        .form-group button {
+            background: linear-gradient(135deg, #38a169, #1c8557);
+            border: none;
+            border-radius: 5px;
+            padding: 12px 25px;
+            font-size: 18px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group button:active {
+            transform: scale(0.98);
+        }
+
+        /* Mensagem "Não encontrou sua Instituição?" posicionada no final da página, acima do footer */
+        .footer-message {
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+        }
+
+        /* Estilo do botão "Clique Aqui!" */
+        .footer-message button {
+            background-color: #ff7f50;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 25px;
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .footer-message button:hover {
+            background-color: #ff6a2c;
+            transform: scale(1.05);
+        }
+        .footer-message button:active {
+            transform: scale(0.95);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="profile-icon">
+            <img src="{{ usuario.imagem_perfil.url }}" alt="Perfil" onclick="toggleSidebar(event)">
+        </div>
+    </div>
+
+    <div class="welcome-message">
+        <h2>Você ainda não possui uma Instituição de Ensino associada a sua conta.</h2>
+        <p>Selecione uma unidade de ensino existente.</p>
+    </div>
+
+{% block content %}
+  <div class="container">
+    <h2>Vincular Conta a uma Instituição</h2>
+    <form method="post" action="{% url 'associar_escola' %}">
+      {% csrf_token %}
+      <label for="escola">Escolha a Instituição:</label>
+      <select name="escola" id="escola">
+        {% for escola in escolas %}
+          <option value="{{ escola.id }}">{{ escola.esc_name }}</option>
+        {% endfor %}
+      </select>
+      <div class="form-group">
+        <button type="submit">Vincular</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="footer-message">
+      <p>Não encontrou sua Instituição?
+         <button onclick="window.location.href='{% url 'criar_escola' %}'">Clique Aqui!</button>
+      </p>
+  </div>
+{% endblock %}
+
+    <div class="footer">
+        <p>EducaSync &copy; 2025 - Todos os direitos reservados</p>
+    </div>
+
+    <!-- Pop-up -->
+    <div id="popup" class="popup">
+        <p id="popup-message"></p>
+        <button onclick="closePopup()">Fechar</button>
+    </div>
+
+    <script>
+        const form = document.getElementById("form-associar-escola");
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+            const formData = new FormData(form);
+            fetch("{% url 'associar_escola' %}", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                const popup = document.getElementById("popup");
+                const popupMessage = document.getElementById("popup-message");
+                if (data.status === "success") {
+                    popupMessage.textContent = data.message;
+                    popup.style.display = "block";
+                    setTimeout(() => {
+                         window.location.href = "{% url 'painel_admin' %}";
+                    }, 2000);
+                } else {
+                    popupMessage.textContent = data.message;
+                    popup.style.display = "block";
+                }
+            });
+        });
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+    </script>
+</body>
+</html>
